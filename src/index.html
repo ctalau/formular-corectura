@@ -5,23 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Google Form</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Create a Google Form</h1>
-        <form id="createForm">
+        <button id="authorize" class="btn btn-primary">Authorize</button>
+        <form id="createForm" class="hidden">
             <div class="form-group">
-                <label for="formName">Form Name:</label>
-                <input type="text" class="form-control" id="formName" required>
+                <label for="clasa">Clasa:</label>
+                <input type="text" class="form-control" id="clasa">
             </div>
             <div class="form-group">
                 <label for="codes">Codes (separated by spaces, newlines, commas, semicolon):</label>
-                <textarea class="form-control" id="codes" rows="5" required></textarea>
+                <textarea class="form-control" id="codes" rows="5"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Create Form</button>
+            <button type="submit" class="btn btn-primary" id="createFormButton">Create Form</button>
         </form>
         <div id="links" style="margin-top: 20px;"></div>
+        <div id="success" class="hidden alert alert-success" role="alert">Done</div>
     </div>
     <script src="app.js"></script>
 </body>
