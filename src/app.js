@@ -111,6 +111,17 @@ async function addQuestions(formId, codes) {
         requests.push(createTextItem("Punctaj " + codes[i], true, false, 2*i + 2));
         requests.push(createTextItem("Comentarii la punctajul " + codes[i], false, true, 2*i + 3));
     }
+    requests.push({
+        "updateFormInfo": {
+            "info": {
+                "title": "Gh. Titeica 2024 - corectare clasa a " + document.getElementById('clasa').value + "-a",
+                "description": "Pentru a putea centraliza mai usor rezultatele, vom trece aici punctajele acordate la fiecare lucrare.\n\n" +
+                    "Punctajele sunt in intevalul 0-7.\n\n"+
+                    "Pe langa punctaj, fiecare lucrare are o sectiune de comentarii unde putem trece probleme pe care le-am observat in legatura cu solutia."
+            },
+            "updateMask": "title,description"
+        }
+    });
     // Add a question to the form
     let response = await fetch(`https://forms.googleapis.com/v1/forms/${formId}:batchUpdate`, {
         method: 'POST',
@@ -133,7 +144,7 @@ async function createForm(e) {
     let title = 'Gh. Titeica 2024 - corectare clasa a ' + document.getElementById('clasa').value + '-a';
     let { formId, responderUri } = await createEmptyFormWithTitle(title);
 
-    var codes = document.getElementById('codes').value.split('\n');
+    var codes = document.getElementById('codes').value.split('\n').map(code => code.trim());
     await addQuestions(formId, codes);
 
     document.getElementById('success').style.display = 'block';
