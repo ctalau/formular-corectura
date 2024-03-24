@@ -144,7 +144,9 @@ async function createForm(e) {
     let title = 'Gh. Titeica 2024 - corectare clasa a ' + document.getElementById('clasa').value + '-a';
     let { formId, responderUri } = await createEmptyFormWithTitle(title);
 
-    var codes = document.getElementById('codes').value.split('\n').map(code => code.trim());
+    var codes = document.getElementById('codes').value.split('\n')
+        .map(code => code.trim())
+        .map(code => 'CNC'+ code)
     await addQuestions(formId, codes);
 
     document.getElementById('success').style.display = 'block';
